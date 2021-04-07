@@ -1,0 +1,46 @@
+<?php
+include('dbconfig.php');
+if(isset($_POST['submit']))
+{
+	$name=$_POST['name'];
+	$img=$_FILES['image']['name'];
+
+	$insert="insert into images values ('NULL','$name','$img')";
+	if(mysqli_query($con,$insert))
+	{
+		move_uploaded_file($_FILES['image']['tmp_name'], "picture/$img");
+		echo "<script>alert('Image Has Been Uploaded To Folder')</script>";
+	}	
+	else{
+		echo "<script>alert('Image Does Not Upload To Folder')</script>";
+	}
+}
+
+
+?>
+
+
+<html>
+<body>
+    <head>S
+	    <title>Image Upload Into Folder Using PHP</title>
+	    <link rel="stylesheet" href="styles.css">
+    </head>
+    <div class="square">
+
+        
+
+        <form action="index.php" method="post" enctype="multipart/form-data">
+        <label>Name</label>
+        <input type="text" name="name">
+        <br>
+        <label>Select Image To Upload</label>
+        <input type="file" name="image">
+
+        <input type="submit" name="submit" value="Upload The Picture">
+
+        </form>
+    </div> 
+
+</body>
+</html>
